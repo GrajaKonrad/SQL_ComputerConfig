@@ -11,13 +11,45 @@
 {
     margin-top: 25px;
     top: 10%;
-    margin-left:  35%;
-    margin-right: 35%;
-    width:30%;
+    margin-left:  45%;
+    margin-right: 45%;
+    width:10%;
+    min-width: 200px;
+}
+.conf_table{
+    margin-top: 60px;
+}
+
+.conf_table a
+{
+    width: 50%;
+}
+.one_third_spacing
+{
+    width: 33%;
+}
+
+.one_line_button
+{
+    margin-top: 25px;
+    top: 10%;
+    width:10%;
+    min-width: 200px;
 }
 
 .form_bracket
 {
-    width: 50%;
-    margin-left: 25%;
+    width: 20%;
+    margin-top: 5%;
+    margin-left: 40%;
+    padding: 20px;
+}
+
+.pure-form-aligned .pure-control-group label {
+text-align: left;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(75, 112, 124);
 }
