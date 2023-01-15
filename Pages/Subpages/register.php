@@ -15,7 +15,7 @@
         <script src=".\..\..\FrontEnd\register.js"></script>
         <div class="form_bracket">
             <span class="pure-menu-heading" style="font-size: x-large; padding-left: 0; padding-bottom: 2em;">Rejestracja</span>
-            <form class="pure-form pure-form-aligned" action="..\..\BackEnd\register.php" method="post">
+            <form class="pure-form pure-form-aligned" action="..\..\BackEnd\register_code.php" method="post">
                 <fieldset>
                     <div class="pure-control-group">
                         <label for="aligned-name">Login</label>
@@ -30,7 +30,7 @@
                         <label for="aligned-repassword">Powtórz Hasło</label>
                         <input type="password" id="aligned-repassword" name = "Repassword" placeholder="Hasło" onfocusout="checkPassword()" />
                     </div>
-                    <div >
+                    <div>
                         <button type="submit" class="pure-button pure-button-primary" id="register_button">Zarejestruj</button>
                     </div>
                 </fieldset>

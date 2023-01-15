@@ -1,3 +1,10 @@
+<?php
+    session_start();
+    $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
+    $sql = "Select Nazwa From konfiguracje join uzytkownicy on konfiguracje.Uzytkownik = uzytkownicy.id Where uzytkownicy.email like('".$_SESSION['login']."');";
+    $result = mysqli_query($connect,$sql);
+    mysqli_close($connect);
+?>
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
     <head>
@@ -16,9 +23,8 @@
                 <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
                     <a class="pure-menu-heading" href="">Konfigurator PC</a>
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Dodaj części</a></li>
-                        <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Dodaj zestaw</a></li>
-                        <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Wyloguj</a></li>
+                        <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Dodaj konfigurację</a></li>
+                        <li class="pure-menu-item pure-menu-selected"><a href="..\BackEnd\logout.php" class="pure-menu-link">Wyloguj</a></li>
                     </ul>
                 </div>
             </div>
@@ -35,60 +41,19 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td style="width: 3%;">1</td>
-                        <td>Honda</td>
-                        <td style="width: 3%;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></td>
-                        <td style="width: 3%;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Toyota</td>
-                        <td>Camry</td>
-                        <td>2012</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Hyundai</td>
-                        <td>Elantra</td>
-                        <td>2010</td>
-                    </tr>
+                    <?php 
+                        $i = 1;
+                        while($row = mysqli_fetch_assoc($result))
+                        {
+                            echo '<tr>';
+                            echo '<td style="width: 3%;">'.$i.'</td>';
+                            echo '<td>'.$row["Nazwa"].'</td>';
+                            echo '<td style="width: 3%;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></td>';
+                            echo '<td style="width: 3%;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                            $i++;
+                        }
+                    
+                    ?>  
                 </tbody>
             </table>
         
