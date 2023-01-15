@@ -1,3 +1,10 @@
+<?php
+    if(isset($_SESSION['login']))
+    {
+        header("Location: .View_configs.php");
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
     <head>
@@ -28,7 +35,7 @@
                     <div >
                         <button type="submit" class="pure-button pure-button-primary">Zaloguj</button>
                     </div>
-                    <span><a href="#">Nie masz konta ? Zarejestruj się</a></span>
+                    <span><a href=".\Subpages\register.php">Nie masz konta ? Zarejestruj się</a></span>
                 </fieldset>
             </form>
         </div>

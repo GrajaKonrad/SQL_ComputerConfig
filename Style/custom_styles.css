@@ -24,6 +24,16 @@
 {
     width: 50%;
 }
+
+.part_table
+{
+    width: 100%; 
+    border: 1px black solid; 
+    border-radius: 8px; 
+    margin-top:15px; 
+    padding:5px;
+}
+
 .one_third_spacing
 {
     width: 33%;
