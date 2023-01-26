@@ -1,7 +1,7 @@
 <?php
     session_start();
     $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
-    $sql = "Select Nazwa From konfiguracje join uzytkownicy on konfiguracje.Uzytkownik = uzytkownicy.id Where uzytkownicy.email like('".$_SESSION['login']."');";
+    $sql = "Select konfiguracje.Id as KId, Nazwa From konfiguracje join uzytkownicy on konfiguracje.Uzytkownik = uzytkownicy.id Where uzytkownicy.email like('".$_SESSION['login']."');";
     $result = mysqli_query($connect,$sql);
     mysqli_close($connect);
 ?>
@@ -49,10 +49,10 @@
                             echo '<td style="width: 3%;">'.$i.'</td>';
                             echo '<td>'.$row["Nazwa"].'</td>';
                             echo '<form method="POST" action=".\Subpages\config_page.php">';
-                            echo '<td style="width: 3%;"><button name="edit_button" value = '.$row["Nazwa"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></button></td>';
+                            echo '<td style="width: 3%;"><button name="edit_button" value = '.$row["KId"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></button></td>';
                             echo '</form>';
                             echo '<form method="POST" action="#">';
-                            echo '<td style="width: 3%;"><button value = '.$row["Nazwa"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
+                            echo '<td style="width: 3%;"><button value = '.$row["KId"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                             echo '</form>';
                             $i++;
                         }

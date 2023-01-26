@@ -1,12 +1,15 @@
 <?php
+    session_start();
     $is_new = true;
     if (isset($_POST['edit_button']))
     {
+        $_SESSION['config'] = $_POST['edit_button'];
         $is_new = false;
         $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
         //What have i done !!!!!!!!
         $sql = "
             SELECT
+            konfiguracje.nazwa as knazwa,
             ChlodzenieCPU.Producent as CHCPUPRO, ChlodzenieCPU.Model as CHCPUMODE, 
             procesory.Producent as PROCPro, procesory.Model AS PROCMode,
             plytyglowne.Producent as MOBOPro, plytyglowne.Model AS MOBOMode,
@@ -24,13 +27,14 @@
             Left JOIN kartygraficzne ON konfiguracje.KartaGraficzna=kartygraficzne.id
             Left JOIN kartysieciowe on konfiguracje.KartaSieciowa=kartysieciowe.Id
             Left Join kartydzwiekowe on konfiguracje.KartaDzwiekowa=kartydzwiekowe.Id
-            Where nazwa like ('".$_POST['edit_button']."')
+            Where konfiguracje.Id like ('".$_POST['edit_button']."')
             ";
         $result = mysqli_query($connect,$sql);
         mysqli_close($connect);
         $row = mysqli_fetch_assoc($result);
         //load config setup
     }
+    else
 ?>
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
@@ -68,7 +72,7 @@
                     }
                     else
                     {
-                        echo '<input type="text" id="aligned-name" value="'.$_POST['edit_button'].'" name = "Conf_name" style="text-align: center; padding: 5px; border-radius: 10px"/>';
+                        echo '<input type="text" id="aligned-name" value="'.$row["knazwa"].'" name = "Conf_name" style="text-align: center; padding: 5px; border-radius: 10px"/>';
                     }
                     
                     ?>
@@ -79,6 +83,31 @@
                     <tr><td>Płyta główna</td><td></td><td>Procesor</td></tr>
                 <tr>
                     <td>
+                        <table class="part_table">
+                        <tr>
+                        <?php 
+                            if($is_new || $row['PROCPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['PROCMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['PROCPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
+                        </table>
+                    </td>
+                    <td style="width:35px"></td>
+                    <td>                        
                         <table class="part_table">
                         <tr>
                         <?php 
@@ -99,14 +128,7 @@
                                 echo '</form>';
                             }
                         ?>
-    
                         </tr>
-                        </table>
-                    </td>
-                    <td style="width:35px"></td>
-                    <td>                        
-                        <table class="part_table">
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
                         </table>
                     </td>
                 </tr>
