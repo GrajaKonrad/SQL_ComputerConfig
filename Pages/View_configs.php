@@ -21,9 +21,9 @@
      <header>
             <div class="header" style="display: flexbox;">
                 <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
-                    <a class="pure-menu-heading" href="">Konfigurator PC</a>
+                    <a class="pure-menu-heading"  href = ".\View_configs.php">Konfigurator PC</a>
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-selected"><a href="#" class="pure-menu-link">Dodaj konfigurację</a></li>
+                        <li class="pure-menu-item pure-menu-selected"><a href=".\Subpages\config_page.php" class="pure-menu-link">Dodaj konfigurację</a></li>
                         <li class="pure-menu-item pure-menu-selected"><a href="..\BackEnd\logout.php" class="pure-menu-link">Wyloguj</a></li>
                     </ul>
                 </div>
@@ -48,8 +48,12 @@
                             echo '<tr>';
                             echo '<td style="width: 3%;">'.$i.'</td>';
                             echo '<td>'.$row["Nazwa"].'</td>';
-                            echo '<td style="width: 3%;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></td>';
-                            echo '<td style="width: 3%;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                            echo '<form method="POST" action=".\Subpages\config_page.php">';
+                            echo '<td style="width: 3%;"><button name="edit_button" value = '.$row["Nazwa"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></button></td>';
+                            echo '</form>';
+                            echo '<form method="POST" action="#">';
+                            echo '<td style="width: 3%;"><button value = '.$row["Nazwa"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
+                            echo '</form>';
                             $i++;
                         }
                     
@@ -58,7 +62,7 @@
             </table>
         
             <div>
-                <button class="pure-button pure-button-primary centered_button">Dodaj konfigurację
+                <button class="pure-button pure-button-primary centered_button"  onclick="location.href = '.\\Subpages\\config_page.php';">Dodaj konfigurację
                 </button>
             </div>
         </article>

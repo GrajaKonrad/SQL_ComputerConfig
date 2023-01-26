@@ -16,6 +16,14 @@
     width:10%;
     min-width: 200px;
 }
+
+.img_button
+{
+    border: 0;
+    padding: 0;
+    background-color: blue;
+}
+
 .conf_table{
     margin-top: 60px;
 }
@@ -37,6 +45,7 @@
 .one_third_spacing
 {
     width: 33%;
+    text-align: right;
 }
 
 .one_line_button
