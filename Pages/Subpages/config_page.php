@@ -35,6 +35,9 @@
         //load config setup
     }
     else
+    {
+        $_SESSION['config'] = "";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
@@ -89,8 +92,11 @@
                             if($is_new || $row['PROCPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\Subpages\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="edit_button" value = "Procesor" type="Submit" class="img_button" style="border: 0; padding: 0;">';
+                                echo '<img style="display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
