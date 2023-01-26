@@ -135,16 +135,54 @@
                 <tr style="height: 40px;"></tr>
                 <tr><th></th><th></th></tr>
                     <tr><td>Zasilacz</td><td></td><td>Chłodzenie</td></tr>
-                <tr>
+                    <tr>
                     <td>
                         <table class="part_table">
-                            <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
+                        <tr>
+                        <?php 
+                            if($is_new || $row['PSUPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['PSUMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['PSUPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
                         </table>
                     </td>
                     <td style="width:35px"></td>
                     <td>                        
                         <table class="part_table">
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
+                        <tr>
+                        <?php 
+                            if($is_new || $row['CHCPUPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['CHCPUMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['CHCPUPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
                         </table>
                     </td>
                 </tr>
@@ -154,32 +192,108 @@
                 <tr>
                     <td>
                         <table class="part_table">
-                            <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
+                        <tr>
+                        <?php 
+                            if($is_new || $row['GPUPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['GPUMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['GPUCPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
                         </table>
                     </td>
                     <td style="width:35px"></td>
                     <td>                        
                         <table class="part_table">
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
+                        <tr>
+                        <?php 
+                            if($is_new || $row['SOUNDPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['SOUNDMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['SOUNDPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
                         </table>
                     </td>
                 </tr>
                 <tr style="height: 40px;"></tr>
                 <tr><th></th><th></th></tr>
                 <tr><td>Karta sieciowa</td><td></td><td>Obudowa</td></tr>
-            <tr>
-                <td>
-                    <table class="part_table">
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
-                    </table>
-                </td>
-                <td style="width:35px"></td>
-                <td>                        
-                    <table class="part_table">
-                    <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
-                    </table>
-                </td>
-            </tr>   
+                <tr>
+                    <td>
+                        <table class="part_table">
+                        <tr>
+                        <?php 
+                            if($is_new || $row['NETPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['NETMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['NETPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
+                        </table>
+                    </td>
+                    <td style="width:35px"></td>
+                    <td>                        
+                        <table class="part_table">
+                        <tr>
+                        <?php 
+                            if($is_new || $row['CASEPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['CASEMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['CASEPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
+                        </table>
+                    </td>
+                </tr>  
             <tr style="height: 40px;"></tr>
             <tr><th></th><th></th></tr>
             <tr><td>Pamięć RAM</td><td></td><td>Pamięć systemu</td></tr>
