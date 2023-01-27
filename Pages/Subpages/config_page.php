@@ -120,7 +120,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['MOBOMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['MOBOPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="PlytaGlowna"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -148,7 +148,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['PROCMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['PROCPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="Procesor"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -180,7 +180,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['PSUMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['PSUPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="Zasilacz"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -208,7 +208,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['CHCPUMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['CHCPUPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="ChlodzenieCPU"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -240,7 +240,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['GPUMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['GPUPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="KartaGraficzna"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -268,7 +268,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['SOUNDMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['SOUNDPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="KartaDzwiekowa"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -300,7 +300,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['NETMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['NETPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="KartaSieciowa"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -328,7 +328,7 @@
                             {
                                 echo '<td class="one_third_spacing">'.$row['CASEMode'].'</td>';
                                 echo '<td class="one_third_spacing">'.$row['CASEPro'].'</td>';
-                                echo '<form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '<form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="Obudowa"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form>';
                             }
@@ -369,7 +369,7 @@
                                 echo $row['RamMOD'];
                                 echo '</td><td class="one_third_spacing">';
                                 echo $row['RamPRO'];
-                                echo '</td><form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '</td><form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="PlytaGlowna"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form></tr>';
                             }
@@ -395,7 +395,7 @@
                                 echo $row['DysMOD'];
                                 echo '</td><td class="one_third_spacing">';
                                 echo $row['DysPRO'];
-                                echo '</td><form method="POST" action="..\BackEnd\remove_part.php">';
+                                echo '</td><form method="POST" action="..\..\BackEnd\remove_part.php">';
                                 echo '<td class="one_third_spacing"><button name="part_type" value="PlytaGlowna"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form></tr>';
                             }
