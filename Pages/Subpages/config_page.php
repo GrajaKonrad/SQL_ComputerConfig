@@ -79,7 +79,7 @@
             <div style="height: 10vh;">
             </div>
             <div class="pure-menu-heading" style="text-align: center; font-size: 25px;">
-                <form>
+                <form method="POST" action=".\..\..\BackEnd\ChangeConfigName.php">
                     <?php
                     if($is_new)
                     {
@@ -91,7 +91,7 @@
                     }
                     
                     ?>
-                </form>
+                
             </div>
             <table class="centered_table conf_table">
                 <tr><th></th><th></th></tr>
@@ -235,7 +235,7 @@
                             else
                             {
                                 echo '<td class="one_third_spacing">'.$row['GPUMode'].'</td>';
-                                echo '<td class="one_third_spacing">'.$row['GPUCPro'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['GPUPro'].'</td>';
                                 echo '<form>';
                                 echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
                                 echo '</form>';
@@ -405,6 +405,7 @@
             </table>
             <button class="pure-button pure-button-primary centered_button"  onclick="location.href = '.\\Subpages\\config_page.php';">Zapisz konfigurację
                 </button>
+            </form>
         </article>
     </body>
 </html>
