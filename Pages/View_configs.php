@@ -53,9 +53,9 @@
                             echo '<form method="POST" action=".\Subpages\config_page.php">';
                             echo '<td style="width: 3%;"><button name="edit_button" value = '.$row["KId"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\pencil-square.svg" style="vertical-align: middle;"></img></button></td>';
                             echo '</form>';
-                            echo '<form method="POST" action="..\BackEnd\delete_configuration.php">';
-                            echo '<td style="width: 3%;"><button name="delete_id" value = '.$row["KId"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
-                            echo '</form>';
+                            echo '';
+                            echo '<td style="width: 3%;"><form method="POST" action="..\BackEnd\delete_configuration.php"><button name="delete_id" value = '.$row["KId"].' type="Submit" class="img_button" style="border: 0; padding: 0;"><img src="..\images\trash.svg" style="vertical-align: middle;"></img></button></form></td>';
+                            echo '';
                             $i++;
                         }
                     

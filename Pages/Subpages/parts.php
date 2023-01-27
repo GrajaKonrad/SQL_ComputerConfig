@@ -83,7 +83,7 @@
                     </tbody>
                 </table>
                 <div style="margin-right: 15%; text-align: right;">
-                    <button class="pure-button pure-button-primary one_line_button">Usuń zaznaczenie</button>
+                    <button class="pure-button pure-button-primary one_line_button" style="Display: none">Usuń zaznaczenie</button>
                     <button class="pure-button pure-button-primary one_line_button" style="margin-left: 20px">Dodaj zaznaczone</button>
                 </div>   
             </form> 

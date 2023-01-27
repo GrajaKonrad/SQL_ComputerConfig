@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 27 Sty 2023, 01:10
+-- Czas generowania: 27 Sty 2023, 02:49
 -- Wersja serwera: 10.4.6-MariaDB
 -- Wersja PHP: 7.3.9
 
@@ -265,15 +265,14 @@ CREATE TABLE `konfiguracje` (
 --
 
 INSERT INTO `konfiguracje` (`Id`, `Nazwa`, `ChlodzenieCPU`, `Procesor`, `PlytaGlowna`, `Obudowa`, `Zasilacz`, `KartaGraficzna`, `KartaDzwiekowa`, `KartaSieciowa`, `Uzytkownik`) VALUES
-(1, 'cos', 2, 3, 2, NULL, 4, NULL, NULL, NULL, 16),
+(1, 'cos', 2, 3, 2, 4, 4, 3, 1, 2, 16),
 (2, 'New configuration', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
 (3, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
-(4, 'New configuration', NULL, 3, 2, 4, 3, NULL, 3, NULL, 16),
-(5, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
-(6, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
-(7, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
-(8, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
-(9, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16);
+(4, 'Nddd', NULL, 3, 2, 4, NULL, NULL, 3, NULL, 16),
+(10, 'fajna nazwa', NULL, 2, 1, NULL, 2, NULL, NULL, NULL, 19),
+(11, 'dsa 2', 2, NULL, 2, NULL, NULL, NULL, NULL, NULL, 24),
+(12, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 24),
+(13, 'sad', 2, NULL, 3, NULL, 3, NULL, NULL, NULL, 25);
 
 -- --------------------------------------------------------
 
@@ -471,7 +470,15 @@ INSERT INTO `uzytkownicy` (`Id`, `Email`, `Haslo`) VALUES
 (13, 'Claudia Barker', 'Pa$$w0rd!'),
 (14, 'Summer Barry', 'Pa$$w0rd!'),
 (16, 'admin', 'asdf'),
-(17, 'Tana Mendoza', 'Pa$$w0rd!');
+(17, 'Tana Mendoza', 'Pa$$w0rd!'),
+(18, 'Malachi Cameron', 'Pa$$w0rd!'),
+(19, 'Melodie Murray', 'Pa$$w0rd!'),
+(20, 'Melodie Murray', 'Pa$$w0rd!'),
+(21, 'Melodie Murray', 'Pa$$w0rd!'),
+(22, 'Melodie Murray', 'Pa$$w0rd!'),
+(23, 'Melodie Murray', 'Pa$$w0rd!'),
+(24, 'Rashad Scott', 'Pa$$w0rd!'),
+(25, 'Thane Kelly', 'Pa$$w0rd!');
 
 -- --------------------------------------------------------
 
@@ -659,7 +666,7 @@ ALTER TABLE `kartysieciowe`
 -- AUTO_INCREMENT dla tabeli `konfiguracje`
 --
 ALTER TABLE `konfiguracje`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT dla tabeli `obudowa`
@@ -701,7 +708,7 @@ ALTER TABLE `standardwymiarow`
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT dla tabeli `zasilacze`
@@ -724,7 +731,7 @@ ALTER TABLE `chlodzeniecpukompatybilnosc`
 -- Ograniczenia dla tabeli `dyskikonfiguracji`
 --
 ALTER TABLE `dyskikonfiguracji`
-  ADD CONSTRAINT `dyskikonfiguracji_ibfk_1` FOREIGN KEY (`Konfiguracja`) REFERENCES `konfiguracje` (`Id`),
+  ADD CONSTRAINT `dyskikonfiguracji_ibfk_1` FOREIGN KEY (`Konfiguracja`) REFERENCES `konfiguracje` (`Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `dyskikonfiguracji_ibfk_2` FOREIGN KEY (`Dysk`) REFERENCES `dyski` (`Id`);
 
 --
@@ -751,7 +758,7 @@ ALTER TABLE `obudowa`
 -- Ograniczenia dla tabeli `pamiecramkonfiguracji`
 --
 ALTER TABLE `pamiecramkonfiguracji`
-  ADD CONSTRAINT `pamiecramkonfiguracji_ibfk_1` FOREIGN KEY (`Konfiguracja`) REFERENCES `konfiguracje` (`Id`),
+  ADD CONSTRAINT `pamiecramkonfiguracji_ibfk_1` FOREIGN KEY (`Konfiguracja`) REFERENCES `konfiguracje` (`Id`) ON DELETE CASCADE,
   ADD CONSTRAINT `pamiecramkonfiguracji_ibfk_2` FOREIGN KEY (`PamiecRAM`) REFERENCES `pamiecram` (`Id`);
 
 --

@@ -369,8 +369,11 @@
                                 echo $row['RamMOD'];
                                 echo '</td><td class="one_third_spacing">';
                                 echo $row['RamPRO'];
-                                echo '</td><form method="POST" action="..\..\BackEnd\remove_part.php">';
-                                echo '<td class="one_third_spacing"><button name="part_type" value="PlytaGlowna"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
+                                echo '</td><form method="POST" action="..\..\BackEnd\remove_part_bank.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<input name="part_mod" value="'.$row['RamMOD'].'" style="Display:none"\>';
+                                echo '<input name="part_pro" value="'.$row['RamPRO'].'" style="Display:none"\>';
+                                echo '<button name="part_type" value="pamiecram"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form></tr>';
                             }
 
@@ -395,8 +398,11 @@
                                 echo $row['DysMOD'];
                                 echo '</td><td class="one_third_spacing">';
                                 echo $row['DysPRO'];
-                                echo '</td><form method="POST" action="..\..\BackEnd\remove_part.php">';
-                                echo '<td class="one_third_spacing"><button name="part_type" value="PlytaGlowna"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
+                                echo '</td><form method="POST" action="..\..\BackEnd\remove_part_bank.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<input name="part_mod" value="'.$row['DysMOD'].'" style="Display:none"\>';
+                                echo '<input name="part_pro" value="'.$row['DysPRO'].'" style="Display:none"\>';                               
+                                echo '<button name="part_type" value="dyski"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></button></td>';
                                 echo '</form></tr>';
                             }
                             echo '<td class="one_third_spacing"/>';
