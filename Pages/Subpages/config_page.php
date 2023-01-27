@@ -3,6 +3,7 @@
     $is_new = true;
     $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
     mysqli_set_charset($connect, 'utf8');
+    echo $_SESSION['config'];
     if ($_SESSION['config'] != "" || isset($_POST['edit_button']))
     {
         if( isset($_POST['edit_button']))
@@ -38,6 +39,7 @@
     }
     else
     {
+        echo $_SESSION['id'] . "id";
         $sql = "
             INSERT INTO konfiguracje(Id, Nazwa, Uzytkownik)
             Values (default,'New configuration', ".$_SESSION['id'].");
@@ -78,8 +80,9 @@
         <article>
             <div style="height: 10vh;">
             </div>
+            <form method="POST" action=".\..\..\BackEnd\ChangeConfigName.php">
             <div class="pure-menu-heading" style="text-align: center; font-size: 25px;">
-                <form method="POST" action=".\..\..\BackEnd\ChangeConfigName.php">
+                
                     <?php
                     if($is_new)
                     {
@@ -100,6 +103,7 @@
                     <td>
                         <table class="part_table">
                         <tr>
+                        <form> </form>
                         <?php 
                             if($is_new || $row['MOBOPro'] == NULL)
                             {
@@ -358,6 +362,7 @@
                 <td>
                     <table class="part_table">
                         <?php 
+
                             while($row = $resultRAM->fetch_assoc())
                             {
                                 echo '<tr><td class="one_third_spacing">';
