@@ -38,13 +38,13 @@
     border: 1px black solid; 
     border-radius: 8px; 
     margin-top:15px; 
-    padding:5px;
+    padding: 1px;
 }
 
 .one_third_spacing
 {
     width: 33%;
-    text-align: right;
+    text-align: center;
 }
 
 .one_line_button

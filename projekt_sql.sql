@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Czas generowania: 14 Sty 2023, 18:06
--- Wersja serwera: 10.1.38-MariaDB
--- Wersja PHP: 7.3.3
+-- Czas generowania: 27 Sty 2023, 01:10
+-- Wersja serwera: 10.4.6-MariaDB
+-- Wersja PHP: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,70 @@ SET time_zone = "+00:00";
 --
 -- Baza danych: `projekt_sql`
 --
+
+DELIMITER $$
+--
+-- Procedury
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajchlodzeniecpu` (`idchlodzenia` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET ChlodzenieCPU=idChlodzenia
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajdyski` (IN `idDYS` INT(11), IN `idKONFIG` INT(11))  BEGIN
+    INSERT INTO dyskikonfiguracji (konfiguracja, dysk)
+    VALUES (idKONFIG, idDYS);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajkartydzwiekowe` (`idkarty` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET kartadzwiekowa=idkarty
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajkartygraficzne` (`idkarty` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET kartagraficzna=idkarty
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajkartysieciowe` (`idkarty` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET kartasieciowa=idkarty
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajobudowa` (`idobudowy` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET obudowa=idobudowy
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajpamiecram` (`idRAM` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	INSERT INTO pamiecramkonfiguracji
+	VALUES (idkonfiguracji,idRAM);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajplytyglowne` (`idplyty` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET plytaglowna=idplyty
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajprocesory` (`idprocesora` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET procesor=idprocesora
+	WHERE id=idkonfiguracji;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `Dodajzasilacze` (`idzasilacza` INT(11), `idkonfiguracji` INT(11))  BEGIN
+	UPDATE konfiguracje
+	SET Zasilacz=idzasilacza
+	WHERE id=idkonfiguracji;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -92,6 +156,17 @@ CREATE TABLE `dyskikonfiguracji` (
   `Konfiguracja` int(11) NOT NULL,
   `Dysk` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `dyskikonfiguracji`
+--
+
+INSERT INTO `dyskikonfiguracji` (`Konfiguracja`, `Dysk`) VALUES
+(1, 1),
+(1, 2),
+(1, 3),
+(2, 1),
+(3, 1);
 
 -- --------------------------------------------------------
 
@@ -185,6 +260,21 @@ CREATE TABLE `konfiguracje` (
   `Uzytkownik` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
 
+--
+-- Zrzut danych tabeli `konfiguracje`
+--
+
+INSERT INTO `konfiguracje` (`Id`, `Nazwa`, `ChlodzenieCPU`, `Procesor`, `PlytaGlowna`, `Obudowa`, `Zasilacz`, `KartaGraficzna`, `KartaDzwiekowa`, `KartaSieciowa`, `Uzytkownik`) VALUES
+(1, 'cos', 2, 3, 2, NULL, 4, NULL, NULL, NULL, 16),
+(2, 'New configuration', 3, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
+(3, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
+(4, 'New configuration', NULL, 3, 2, 4, 3, NULL, 3, NULL, 16),
+(5, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
+(6, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
+(7, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
+(8, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16),
+(9, 'New configuration', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 16);
+
 -- --------------------------------------------------------
 
 --
@@ -245,6 +335,14 @@ CREATE TABLE `pamiecramkonfiguracji` (
   `Konfiguracja` int(11) NOT NULL,
   `PamiecRAM` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_polish_ci;
+
+--
+-- Zrzut danych tabeli `pamiecramkonfiguracji`
+--
+
+INSERT INTO `pamiecramkonfiguracji` (`Konfiguracja`, `PamiecRAM`) VALUES
+(1, 2),
+(1, 3);
 
 -- --------------------------------------------------------
 
@@ -368,7 +466,12 @@ CREATE TABLE `uzytkownicy` (
 --
 
 INSERT INTO `uzytkownicy` (`Id`, `Email`, `Haslo`) VALUES
-(1, 'User1', 'password');
+(1, 'User1', 'password'),
+(12, 'Dorothy Finch', 'Pa$$w0rd!'),
+(13, 'Claudia Barker', 'Pa$$w0rd!'),
+(14, 'Summer Barry', 'Pa$$w0rd!'),
+(16, 'admin', 'asdf'),
+(17, 'Tana Mendoza', 'Pa$$w0rd!');
 
 -- --------------------------------------------------------
 
@@ -556,7 +659,7 @@ ALTER TABLE `kartysieciowe`
 -- AUTO_INCREMENT dla tabeli `konfiguracje`
 --
 ALTER TABLE `konfiguracje`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT dla tabeli `obudowa`
@@ -598,7 +701,7 @@ ALTER TABLE `standardwymiarow`
 -- AUTO_INCREMENT dla tabeli `uzytkownicy`
 --
 ALTER TABLE `uzytkownicy`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT dla tabeli `zasilacze`

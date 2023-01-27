@@ -1,6 +1,8 @@
 <?php
     session_start();
+    $_SESSION['config']="";
     $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
+    mysqli_set_charset($connect, 'utf8');
     $sql = "Select konfiguracje.Id as KId, Nazwa From konfiguracje join uzytkownicy on konfiguracje.Uzytkownik = uzytkownicy.id Where uzytkownicy.email like('".$_SESSION['login']."');";
     $result = mysqli_query($connect,$sql);
     mysqli_close($connect);
@@ -23,7 +25,7 @@
                 <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
                     <a class="pure-menu-heading"  href = ".\View_configs.php">Konfigurator PC</a>
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-selected"><a href=".\Subpages\config_page.php" class="pure-menu-link">Dodaj konfigurację</a></li>
+                        <li class="pure-menu-item pure-menu-selected"><a href=".\View_configs.php" class="pure-menu-link">Zestawy</a></li>
                         <li class="pure-menu-item pure-menu-selected"><a href="..\BackEnd\logout.php" class="pure-menu-link">Wyloguj</a></li>
                     </ul>
                 </div>

@@ -1,16 +1,19 @@
 <?php
     session_start();
     $is_new = true;
-    if (isset($_POST['edit_button']))
+    $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
+    mysqli_set_charset($connect, 'utf8');
+    if ($_SESSION['config'] != "" || isset($_POST['edit_button']))
     {
-        $_SESSION['config'] = $_POST['edit_button'];
+        if( isset($_POST['edit_button']))
+        {
+            $_SESSION['config'] = $_POST['edit_button'];
+        }
         $is_new = false;
-        $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
-        //What have i done !!!!!!!!
         $sql = "
             SELECT
             konfiguracje.nazwa as knazwa,
-            ChlodzenieCPU.Producent as CHCPUPRO, ChlodzenieCPU.Model as CHCPUMODE, 
+            ChlodzenieCPU.Producent as CHCPUPro, ChlodzenieCPU.Model as CHCPUMode, 
             procesory.Producent as PROCPro, procesory.Model AS PROCMode,
             plytyglowne.Producent as MOBOPro, plytyglowne.Model AS MOBOMode,
             obudowa.Producent as CASEPro, obudowa.Model AS CASEMode,
@@ -27,17 +30,26 @@
             Left JOIN kartygraficzne ON konfiguracje.KartaGraficzna=kartygraficzne.id
             Left JOIN kartysieciowe on konfiguracje.KartaSieciowa=kartysieciowe.Id
             Left Join kartydzwiekowe on konfiguracje.KartaDzwiekowa=kartydzwiekowe.Id
-            Where konfiguracje.Id like ('".$_POST['edit_button']."')
+            Where konfiguracje.Id like ('".$_SESSION['config']."')
             ";
         $result = mysqli_query($connect,$sql);
-        mysqli_close($connect);
         $row = mysqli_fetch_assoc($result);
         //load config setup
     }
     else
     {
-        $_SESSION['config'] = "";
+        $sql = "
+            INSERT INTO konfiguracje(Id, Nazwa, Uzytkownik)
+            Values (default,'New configuration', ".$_SESSION['id'].");
+        ";
+        $result = mysqli_query($connect,$sql);
+        $sql = "Select max(id) as new_id From konfiguracje Where Uzytkownik = ".$_SESSION['id']." and Nazwa like('New configuration');";
+        $result = mysqli_query($connect,$sql);
+        $row = mysqli_fetch_assoc($result);
+        $_SESSION['config'] = $row['new_id'];
+        
     }
+    mysqli_close($connect);
 ?>
 <!DOCTYPE html>
 <html lang="pl" dir="ltr">
@@ -57,7 +69,7 @@
                 <div class="home-menu pure-menu pure-menu-horizontal pure-menu-fixed">
                     <a class="pure-menu-heading"  href = "..\View_configs.php">Konfigurator PC</a>
                     <ul class="pure-menu-list">
-                        <li class="pure-menu-item pure-menu-selected"><a href=".\config_page.php" class="pure-menu-link">Dodaj zestaw</a></li>
+                        <li class="pure-menu-item pure-menu-selected"><a href="..\View_configs.php" class="pure-menu-link">Zestawy</a></li>
                         <li class="pure-menu-item pure-menu-selected"><a href="..\..\BackEnd\logout.php" class="pure-menu-link">Wyloguj</a></li>
                     </ul>
                 </div>
@@ -89,13 +101,41 @@
                         <table class="part_table">
                         <tr>
                         <?php 
+                            if($is_new || $row['MOBOPro'] == NULL)
+                            {
+                                echo '<td class="one_third_spacing"/>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "plytyglowne" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">';
+                                echo '<img style="display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img>';
+                                echo '</button></td>';
+                                echo '</form>';
+                                echo '<td class="one_third_spacing"/>';
+                            }
+                            else
+                            {
+                                echo '<td class="one_third_spacing">'.$row['MOBOMode'].'</td>';
+                                echo '<td class="one_third_spacing">'.$row['MOBOPro'].'</td>';
+                                echo '<form>';
+                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</form>';
+                            }
+                        ?>
+                        </tr>
+                        </table>
+                    </td>
+                    <td style="width:35px"></td>
+                    <td>                        
+                        <table class="part_table">
+                        <tr>
+                        <?php 
                             if($is_new || $row['PROCPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form method="POST" action=".\Subpages\parts.php">';
+                                echo '<form method="POST" action=".\parts.php">';
                                 echo '<td class="one_third_spacing">';
-                                echo '<button name="edit_button" value = "Procesor" type="Submit" class="img_button" style="border: 0; padding: 0;">';
-                                echo '<img style="display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img>';
+                                echo '<button name="add_part" value = "procesory" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
                                 echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
@@ -112,45 +152,23 @@
                         </tr>
                         </table>
                     </td>
-                    <td style="width:35px"></td>
-                    <td>                        
-                        <table class="part_table">
-                        <tr>
-                        <?php 
-                            if($is_new || $row['MOBOPro'] == NULL)
-                            {
-                                echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
-                                echo '</form>';
-                                echo '<td class="one_third_spacing"/>';
-                            }
-                            else
-                            {
-                                echo '<td class="one_third_spacing">'.$row['MOBOMode'].'</td>';
-                                echo '<td class="one_third_spacing">'.$row['MOBOPro'].'</td>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
-                                echo '</form>';
-                            }
-                        ?>
-                        </tr>
-                        </table>
-                    </td>
                 </tr>
                 <tr style="height: 40px;"></tr>
                 <tr><th></th><th></th></tr>
                     <tr><td>Zasilacz</td><td></td><td>Chłodzenie</td></tr>
                     <tr>
-                    <td>
+                    <td style="width: 47.5%">
                         <table class="part_table">
                         <tr>
                         <?php 
                             if($is_new || $row['PSUPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "zasilacze" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
@@ -166,16 +184,19 @@
                         </tr>
                         </table>
                     </td>
-                    <td style="width:35px"></td>
-                    <td>                        
+                    <td style="width:5%"></td>
+                    <td style="width: 47.5%">                        
                         <table class="part_table">
                         <tr>
                         <?php 
                             if($is_new || $row['CHCPUPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "chlodzeniecpu" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
@@ -203,8 +224,11 @@
                             if($is_new || $row['GPUPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "kartygraficzne" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
@@ -228,8 +252,11 @@
                             if($is_new || $row['SOUNDPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "kartydzwiekowe" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
@@ -257,8 +284,11 @@
                             if($is_new || $row['NETPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "kartysieciowe" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
@@ -282,8 +312,11 @@
                             if($is_new || $row['CASEPro'] == NULL)
                             {
                                 echo '<td class="one_third_spacing"/>';
-                                echo '<form>';
-                                echo '<td class="one_third_spacing"><img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '<form method="POST" action=".\parts.php">';
+                                echo '<td class="one_third_spacing">';
+                                echo '<button name="add_part" value = "obudowa" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                                echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                                echo '</button></td>';
                                 echo '</form>';
                                 echo '<td class="one_third_spacing"/>';
                             }
@@ -303,20 +336,69 @@
             <tr style="height: 40px;"></tr>
             <tr><th></th><th></th></tr>
             <tr><td>Pamięć RAM</td><td></td><td>Pamięć systemu</td></tr>
+            <?php
+                    $connect = mysqli_connect("localhost", "root", "", "projekt_sql");
+                    mysqli_set_charset($connect, 'utf8');
+                    $sql = "
+                        SELECT pamiecram.Producent as RamPRO, pamiecRam.model as RamMOD
+                        FROM PamiecRAM
+                        JOIN pamiecramkonfiguracji ON pamiecram.id = pamiecramkonfiguracji.PamiecRAM
+                        JOIN konfiguracje ON pamiecramkonfiguracji.Konfiguracja = konfiguracje.Id
+                        WHERE pamiecramkonfiguracji.konfiguracja =".$_SESSION['config'];
+                    $resultRAM = mysqli_query($connect,$sql);
+                    $sql = "
+                        SELECT dyski.Producent as DysPRO, dyski.model as DysMOD
+                        FROM Dyski
+                        JOIN dyskikonfiguracji ON dyski.id = dyskikonfiguracji.dysk
+                        JOIN konfiguracje ON dyskikonfiguracji.Konfiguracja = konfiguracje.Id
+                        WHERE dyskikonfiguracji.konfiguracja =".$_SESSION['config'];
+                    $resultDyski = mysqli_query($connect,$sql);
+            ?>
             <tr>
                 <td>
                     <table class="part_table">
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
-                        <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
+                        <?php 
+                            while($row = $resultRAM->fetch_assoc())
+                            {
+                                echo '<tr><td class="one_third_spacing">';
+                                echo $row['RamMOD'];
+                                echo '</td><td class="one_third_spacing">';
+                                echo $row['RamPRO'];
+                                echo '</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>';
+                            }
+
+                            echo '<td class="one_third_spacing"/>';
+                            echo '<form method="POST" action=".\parts.php">';
+                            echo '<td class="one_third_spacing">';
+                            echo '<button name="add_part" value = "pamiecram" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                            echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                            echo '</button></td>';
+                            echo '</form>';
+                            echo '<td class="one_third_spacing"/>';
+                        ?>
                     </table>
                 </td>
                 <td style="width:35px"></td>
                 <td>                        
                     <table class="part_table">
-                    <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
-                    <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
-                    <tr><td class="one_third_spacing">nazwa</td><td class="one_third_spacing">producent</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>
+                    <?php 
+                            while($row = $resultDyski->fetch_assoc())
+                            {
+                                echo '<tr><td class="one_third_spacing">';
+                                echo $row['DysMOD'];
+                                echo '</td><td class="one_third_spacing">';
+                                echo $row['DysPRO'];
+                                echo '</td><td class="one_third_spacing"><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td></tr>';
+                            }
+                            echo '<td class="one_third_spacing"/>';
+                            echo '<form method="POST" action=".\parts.php">';
+                            echo '<td class="one_third_spacing">';
+                            echo '<button name="add_part" value = "dyski" type="Submit" class="img_button" style="border: 0; padding: 0; text-align:centre;">'; 
+                            echo '<img style="  display: block; margin-left: auto; margin-right: auto;" src="..\..\images\plus-circle.svg" style="vertical-align: middle;"></img></td>';
+                            echo '</button></td>';
+                            echo '</form>';
+                            echo '<td class="one_third_spacing"/>';
+                        ?>
                     </table>
                 </td>
             </tr>             
