@@ -43,7 +43,7 @@
                 <table class="pure-table pure-table-horizontal centered_table" style="margin-left: 15%; margin-right: 15%; width: 70%;">
                     <thead>
                         <tr>
-                            <th style="width: 3%;"/>
+                            <th style="width: 3%;"></th>
                             <?php 
                                 $rows_width = 88 / mysqli_num_rows($resultColumns);
                                 while($row = $resultColumns->fetch_assoc()){
@@ -59,8 +59,8 @@
                                     
                                 }
                             ?>
-                            <th style="width: 3%;"/>
-                            <th style="width: 3%;"/>
+                            <!-- <th style="width: 3%;"></th>
+                            <th style="width: 3%;"></th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -75,8 +75,8 @@
                                     echo  $row[$value];
                                     echo '</td>';
                                 }
-                                echo '<td><img src="..\..\images\pencil-square.svg" style="vertical-align: middle;"></img></td>';
-                                echo '<td><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
+                                // echo '<td><img src="..\..\images\pencil-square.svg" style="vertical-align: middle;"></img></td>';
+                                // echo '<td><img src="..\..\images\trash.svg" style="vertical-align: middle;"></img></td>';
                                 echo "</tr>";
                             }
                             ?>
